@@ -137,6 +137,7 @@ window.onload = wrap_img;
 
   <div class="post-content e-content" itemprop="articleBody">
     <ul class="section-nav">
+<li class="toc-entry toc-h1"><a href="#Source-Data">Source Data </a></li>
 <li class="toc-entry toc-h1"><a href="#Financial-Statements-(Billions)">Financial Statements (Billions) </a>
 <ul>
 <li class="toc-entry toc-h2"><a href="#Income-Statement">Income Statement </a></li>
@@ -181,7 +182,7 @@ window.onload = wrap_img;
 </li>
 <li class="toc-entry toc-h1"><a href="#Investment-Summary-and-Proposal">Investment Summary and Proposal </a>
 <ul>
-<li class="toc-entry toc-h2"><a href="#Reccomendation:">Reccomendation: </a></li>
+<li class="toc-entry toc-h2"><a href="#Recommendation:">Recommendation: </a></li>
 <li class="toc-entry toc-h2"><a href="#Thesis">Thesis </a></li>
 <li class="toc-entry toc-h2"><a href="#Brief-Industry-Overview">Brief Industry Overview </a></li>
 <li class="toc-entry toc-h2"><a href="#Brief-Peer-Overview">Brief Peer Overview </a></li>
@@ -218,167 +219,31 @@ window.onload = wrap_img;
 </div>
 </div>
 </div>
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<details class="description">
-      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
-        <p></p>
-<div class="input">
-
+<div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse-hide</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
-<span class="kn">import</span> <span class="nn">altair</span> <span class="k">as</span> <span class="nn">alt</span>
-<span class="kn">from</span> <span class="nn">datetime</span> <span class="kn">import</span> <span class="n">timedelta</span><span class="p">,</span> <span class="n">datetime</span><span class="p">,</span> <span class="n">date</span>
-<span class="o">%</span><span class="k">config</span> InlineBackend.figure_format = 'retina'
-
-<span class="n">chart_width</span> <span class="o">=</span> <span class="mi">550</span>
-<span class="n">chart_height</span><span class="o">=</span> <span class="mi">400</span>
-
-<span class="kn">import</span> <span class="nn">gspread</span>
-<span class="kn">from</span> <span class="nn">oauth2client.service_account</span> <span class="kn">import</span> <span class="n">ServiceAccountCredentials</span>
-
-<span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s1">'display.max_rows'</span><span class="p">,</span> <span class="mi">500</span><span class="p">)</span>
-<span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s1">'display.max_columns'</span><span class="p">,</span> <span class="mi">500</span><span class="p">)</span>
-<span class="n">pd</span><span class="o">.</span><span class="n">set_option</span><span class="p">(</span><span class="s1">'display.width'</span><span class="p">,</span> <span class="mi">1000</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-    </details>
-</div>
-    
-
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<details class="description">
-      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
-        <p></p>
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse-hide</span>
-<span class="n">client_sec</span> <span class="o">=</span> <span class="p">{</span>
-  <span class="s2">"type"</span><span class="p">:</span> <span class="s2">"service_account"</span><span class="p">,</span>
-  <span class="s2">"project_id"</span><span class="p">:</span> <span class="s2">"peppy-nation-255220"</span><span class="p">,</span>
-  <span class="s2">"private_key_id"</span><span class="p">:</span> <span class="s2">"94da5550dc920fac1e281634e7e90ec11eec581c"</span><span class="p">,</span>
-  <span class="s2">"private_key"</span><span class="p">:</span> <span class="s2">"-----BEGIN PRIVATE KEY-----</span><span class="se">\n</span><span class="s2">MIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAoIBAQDJiZhCEI5TVccR</span><span class="se">\n</span><span class="s2">wXf+S8tWvX+phjEDcUtV7SvTPiiiFVWu/NNdpd/xS9AQzU2w9gJs0RrWAMG6WNGX</span><span class="se">\n</span><span class="s2">HIZQoOx9aKdWUH6Rb6TsyK2sD8Ldd+np0GIbMwjIpFZ3IaVHnQOXY4MnJjyENzks</span><span class="se">\n</span><span class="s2">lZZaIkOqfOHvJtGoNMxGufupTAA5+QzKhyuyEa8vpNvrID32lib5NgOxyjQzpk+w</span><span class="se">\n</span><span class="s2">A5KEd/WOT8IK6pvIPEdB1qDk+P7Jqxa3mJBLnDNuqDBz4QeIr8DuGZOvql+B0s+1</span><span class="se">\n</span><span class="s2">ACFY+ZZWyL4G5HwZSk1vtdxwKNYD336H63kofP9mhkY56ykZjAcAxsoK7dIeYlW7</span><span class="se">\n</span><span class="s2">R/joq3tVAgMBAAECggEAOOIKpP7qRPAtfz/1f8Nh0Yor2avD8r5L7qVB3N4q9tCB</span><span class="se">\n</span><span class="s2">viGjAMgcJI1q3QstVfihp5f/dI6DH3cJNRb6fBBnn1/l9zFCAAeca66agjlynTLG</span><span class="se">\n</span><span class="s2">xVUpE5c8b/EebIKFFWjmRhjywB6FLyYtD33rEWahZaHY3Ti+LTU1wPKmatrGJ5Y4</span><span class="se">\n</span><span class="s2">2NmEJAPZUTTjleJKlTCvQjliA5/2sku6c+/S+1D9nw5QRiYG9j0I8oTSK3xO8mdX</span><span class="se">\n</span><span class="s2">+zYR/V1k3bVQpD05dYnTZ/uWYIirtSSyKx1VXraxlaEa1POTOAs/4kZaByqtHys0</span><span class="se">\n</span><span class="s2">0gz33vgma1R2otHMmVlhCbr+7IL+frjO0+aLUTwp4wKBgQDu615F7VRMtu7Gwoc1</span><span class="se">\n</span><span class="s2">MPrT9g+Wts93O9unpejmfwhaxVDBGg2C/Qn/jMPtJdLcq8+/zcXcUUc3zLqQC2wy</span><span class="se">\n</span><span class="s2">yqdc6y9mPmhS2bdkvizFjV9WmDWkLl9s+yqKbzvlerD8YY0Mpb97FhxOD6b5DAD3</span><span class="se">\n</span><span class="s2">RaC0q1+tMx4eB4JDTkqNjC0nTwKBgQDX8hLYFmh1qNYDhB8ZmCWB7iAo8bwdruKU</span><span class="se">\n</span><span class="s2">8f+d0BWSPtJE6IAUIgwrfow9Ziq3E8/jhGJbPtcSsCVhxpM9tLi8q9QXXcx4ii4Y</span><span class="se">\n</span><span class="s2">3Nr6QJ3LdW+hXQlIAQ+leXlGgl4OS9qbYp065CjiugO/svMtgDeLnVkZCz2nJzV4</span><span class="se">\n</span><span class="s2">HfXFGdzKGwKBgQCFgRYbwwNhHrOMczT0Xxs6B/wr/pktilAyfP4IlqGHf0yhqro0</span><span class="se">\n</span><span class="s2">IMtOdk0hHgqW7pbXGdffRbejEY6KYSejtiQRQwYofuTyrt/Qtof0GAxXKhSHWrZO</span><span class="se">\n</span><span class="s2">AoeB9aglkgqF7MjRcWjvEardX9ewwKllgw3LBxwefzrsEswSahQ0xkiQ9wKBgQCQ</span><span class="se">\n</span><span class="s2">mhQOSOsIJtewoQ9mRyCOodM9N6pdQheN34LovUdEl/abmAjz8lyt316vWrOtxoGF</span><span class="se">\n</span><span class="s2">+8cVDL5eUD+n+p3sSxENng4222OpL/ZwRawIua4waOIobrFhWvyMNQyFr5SmBBtN</span><span class="se">\n</span><span class="s2">w7o/jjrmn+MUwhLe3CXVwra/82wEe1ftqDpEEu5rEwKBgQDWjldiA0mHpM1aKEpd</span><span class="se">\n</span><span class="s2">h5cdVPvuNgWbrUu0zGOJ+SVkmgz3XZZ/xRYzWcznbZrs7USm7/vvAkIUINS2TH1W</span><span class="se">\n</span><span class="s2">N2rlhhhRHQnhYwDH3hvFJ/RU6uY/TddebKnJG8h2gsYuCG/baqqFJf2Rpjv69AEk</span><span class="se">\n</span><span class="s2">8ynOQayzfl6/3gOev2YRfJccLw==</span><span class="se">\n</span><span class="s2">-----END PRIVATE KEY-----</span><span class="se">\n</span><span class="s2">"</span><span class="p">,</span>
-  <span class="s2">"client_email"</span><span class="p">:</span> <span class="s2">"cfa-challenge@peppy-nation-255220.iam.gserviceaccount.com"</span><span class="p">,</span>
-  <span class="s2">"client_id"</span><span class="p">:</span> <span class="s2">"114091374061235835252"</span><span class="p">,</span>
-  <span class="s2">"auth_uri"</span><span class="p">:</span> <span class="s2">"https://accounts.google.com/o/oauth2/auth"</span><span class="p">,</span>
-  <span class="s2">"token_uri"</span><span class="p">:</span> <span class="s2">"https://oauth2.googleapis.com/token"</span><span class="p">,</span>
-  <span class="s2">"auth_provider_x509_cert_url"</span><span class="p">:</span> <span class="s2">"https://www.googleapis.com/oauth2/v1/certs"</span><span class="p">,</span>
-  <span class="s2">"client_x509_cert_url"</span><span class="p">:</span> <span class="s2">"https://www.googleapis.com/robot/v1/metadata/x509/cfa-challenge%40peppy-nation-255220.iam.gserviceaccount.com"</span>
-<span class="p">}</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-    </details>
-</div>
-    
-
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<details class="description">
-      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
-        <p></p>
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse-hide</span>
-<span class="k">def</span> <span class="nf">get_sheets_as_dfs</span><span class="p">(</span><span class="n">sheetName</span><span class="p">):</span>
-    <span class="c1"># use creds to create a client to interact with the Google Drive API</span>
-    <span class="n">scope</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'https://spreadsheets.google.com/feeds'</span><span class="p">,</span> <span class="s1">'https://www.googleapis.com/auth/drive'</span><span class="p">]</span>
-    
-    <span class="n">creds</span> <span class="o">=</span> <span class="n">ServiceAccountCredentials</span><span class="o">.</span><span class="n">from_json_keyfile_dict</span><span class="p">(</span><span class="n">client_sec</span><span class="p">,</span> <span class="n">scope</span><span class="p">)</span>
-    <span class="n">client</span> <span class="o">=</span> <span class="n">gspread</span><span class="o">.</span><span class="n">authorize</span><span class="p">(</span><span class="n">creds</span><span class="p">)</span>
-    
-    <span class="c1"># Find a workbook by name and open the first sheet</span>
-    <span class="c1"># Make sure you use the right name here.</span>
-    <span class="n">book</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">open</span><span class="p">(</span><span class="n">sheetName</span><span class="p">)</span>
-    
-    <span class="n">worksheet_list</span> <span class="o">=</span> <span class="n">book</span><span class="o">.</span><span class="n">worksheets</span><span class="p">()</span>
-
-    <span class="n">dfs</span> <span class="o">=</span> <span class="p">[]</span>
-    <span class="c1"># Extract and print all of the values</span>
-    <span class="n">counter</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">worksheet_list</span><span class="p">:</span>
-
-      <span class="k">try</span><span class="p">:</span>
-        <span class="n">current</span> <span class="o">=</span> <span class="n">book</span><span class="o">.</span><span class="n">get_worksheet</span><span class="p">(</span><span class="n">counter</span><span class="p">)</span>
-        <span class="n">list_of_hashes</span> <span class="o">=</span> <span class="n">current</span><span class="o">.</span><span class="n">get_all_records</span><span class="p">()</span>
-        <span class="n">liveData</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="o">.</span><span class="n">from_records</span><span class="p">(</span><span class="n">list_of_hashes</span><span class="p">)</span>
-        <span class="nb">tuple</span> <span class="o">=</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">liveData</span><span class="p">)</span>
-        <span class="n">dfs</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">tuple</span><span class="p">)</span>
-
-      <span class="k">except</span> <span class="ne">BaseException</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-        <span class="nb">print</span><span class="p">(</span><span class="s2">"Could not get"</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="s2">"This is probably a graph"</span><span class="p">)</span>
-      <span class="n">counter</span> <span class="o">+=</span> <span class="mi">1</span>
-    <span class="k">return</span> <span class="n">dfs</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-    </details>
-</div>
-    
-
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<details class="description">
-      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
-        <p></p>
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse-hide</span>
-<span class="c1">#Fetch data from booking exploratory analysis google sheet.</span>
-<span class="n">booking_df_list</span> <span class="o">=</span> <span class="n">get_sheets_as_dfs</span><span class="p">(</span><span class="s2">"Booking"</span><span class="p">)</span>
-<span class="o">%</span><span class="k">clear</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-    </details>
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>Could not get &lt;Worksheet 'Growth Rates C' id:1671501091&gt; This is probably a graph
-Could not get &lt;Worksheet 'Liabs/Assets Growth C' id:779597323&gt; This is probably a graph
-Could not get &lt;Worksheet 'Balance Sheet Growth C' id:1025699751&gt; This is probably a graph
-Could not get &lt;Worksheet 'Assets v Liabs C' id:164761733&gt; This is probably a graph
-</pre>
-</div>
-</div>
+<div class="text_cell_render border-box-sizing rendered_html">
+<h1 id="Source-Data">
+<a class="anchor" href="#Source-Data" aria-hidden="true"><span class="octicon octicon-link"></span></a>Source Data<a class="anchor-link" href="#Source-Data"> </a>
+</h1>
+<p><strong>To Replicate Analysis With Another Stock</strong></p>
+<ul>
+<li>Duplicate The Following SpreadSheets</li>
+<li>Exploratory Sheet: </li>
+<li>Valuation Sheet:</li>
+<li>Peer Valuation Sheet:</li>
+</ul>
+<p><strong>Then 
+Duplicate This Colab Notebook</strong></p>
+<p>Features To Add On:</p>
+<ul>
+<li>Feature to clean and format financial data automatically from edgar</li>
+<li>Fetching industry metrics from domadran's websites for comparison with larger sample set</li>
+<li>Facet BarGraph For comp table in peer analysis</li>
+</ul>
 
 </div>
 </div>
-
 </div>
-    
-
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -2638,7 +2503,6 @@ Could not get &lt;Worksheet 'Assets v Liabs C' id:164761733&gt; This is probably
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse-hide</span>
-
 <span class="n">income_g</span> <span class="o">=</span> <span class="n">booking_df_list</span><span class="p">[</span><span class="mi">3</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
 <span class="n">income_g_table</span> <span class="o">=</span> <span class="n">income_g</span>
 <span class="n">cleaned</span> <span class="o">=</span> <span class="n">income_g_table</span><span class="p">[</span><span class="n">income_g_table</span><span class="o">.</span><span class="n">columns</span><span class="p">][:</span><span class="mi">10</span><span class="p">]</span>
@@ -2876,7 +2740,6 @@ Could not get &lt;Worksheet 'Assets v Liabs C' id:164761733&gt; This is probably
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse-hide</span>
-
 <span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'Year'</span><span class="p">,</span><span class="s1">'Revenue Growth'</span><span class="p">,</span> <span class="s1">'AVG Revenue Growth'</span><span class="p">,</span> <span class="s1">'Gross Profit Growth'</span><span class="p">,</span> <span class="s1">'AVG Gross Profit Growth'</span><span class="p">,</span> <span class="s1">'Net Income Growth'</span><span class="p">,</span> <span class="s1">'AVG Net Income Growth'</span><span class="p">,</span> <span class="s1">'EBITDA Growth'</span><span class="p">,</span> <span class="s1">'AVG EBITDA Growth'</span><span class="p">]</span>
 <span class="n">cleaned</span><span class="p">[</span><span class="n">columns</span><span class="p">]</span>
 </pre></div>
@@ -3375,47 +3238,6 @@ Could not get &lt;Worksheet 'Assets v Liabs C' id:164761733&gt; This is probably
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse-hide</span>
 
-<span class="n">cost</span> <span class="o">=</span> <span class="n">booking_df_list</span><span class="p">[</span><span class="mi">4</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
-<span class="n">income_g_table</span> <span class="o">=</span> <span class="n">cost</span>
-<span class="n">cleaned</span> <span class="o">=</span> <span class="n">income_g_table</span><span class="p">[</span><span class="n">income_g_table</span><span class="o">.</span><span class="n">columns</span><span class="p">][</span><span class="mi">11</span><span class="p">:</span><span class="mi">21</span><span class="p">]</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-    </details>
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>Index(['Year', 'Operating Revenue', 'Total Operating Expenses', 'Operating Income', 'Total Operating Expenses/Operating Revenue', 'Operating Revenue Growth', 'AVG Operating Revenue Growth', 'Total Operating Expenses Growth', 'AVG Total Operating Expenses Growth', 'Operating Income Growth', 'AVG Operating Income Growth'], dtype='object')</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-    
-
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<details class="description">
-      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
-        <p></p>
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse-hide</span>
-
 <span class="n">columns</span> <span class="o">=</span> <span class="p">[</span><span class="s1">'Year'</span><span class="p">,</span> <span class="s1">'Operating Revenue'</span><span class="p">,</span> <span class="s1">'Total Operating Expenses'</span><span class="p">,</span> <span class="s1">'Operating Income'</span><span class="p">]</span>
 <span class="n">cleaned</span> <span class="o">=</span> <span class="n">cleaned</span><span class="p">[</span><span class="n">columns</span><span class="p">]</span>
 <span class="n">cleaned</span>
@@ -3538,39 +3360,6 @@ Could not get &lt;Worksheet 'Assets v Liabs C' id:164761733&gt; This is probably
 </div>
 </div>
 
-</div>
-    
-
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<details class="description">
-      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
-        <p></p>
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse-hide</span>
-
-<span class="c1">#Stack Dataframes For Charting</span>
-<span class="n">cleaned</span>
-<span class="n">byYear</span> <span class="o">=</span> <span class="n">cleaned</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s2">"Year"</span><span class="p">)</span><span class="o">.</span><span class="n">stack</span><span class="p">()</span>
-<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">byYear</span><span class="p">,</span> <span class="n">columns</span><span class="o">=</span><span class="p">[</span><span class="s1">'Value'</span><span class="p">])</span>
-<span class="n">df</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">df</span><span class="o">.</span><span class="n">rename</span><span class="p">(</span><span class="n">columns</span><span class="o">=</span><span class="p">{</span><span class="s2">"level_1"</span><span class="p">:</span><span class="s1">'Metric'</span><span class="p">},</span> <span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">df</span><span class="o">.</span><span class="n">dropna</span><span class="p">(</span><span class="n">inplace</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-<span class="n">df</span><span class="p">[</span><span class="o">~</span><span class="n">df</span><span class="o">.</span><span class="n">Value</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s2">"#DIV/0!"</span><span class="p">)]</span>
-<span class="n">df</span><span class="p">[</span><span class="o">~</span><span class="n">df</span><span class="o">.</span><span class="n">Year</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">contains</span><span class="p">(</span><span class="s2">"12/1/2010"</span><span class="p">)]</span>
-<span class="n">df</span><span class="o">.</span><span class="n">set_index</span><span class="p">(</span><span class="s1">'Metric'</span><span class="p">)</span>
-<span class="n">df</span><span class="p">[</span><span class="s1">'Value'</span><span class="p">]</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_numeric</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">'Value'</span><span class="p">]</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">lstrip</span><span class="p">(</span><span class="s1">'$'</span><span class="p">),</span> <span class="n">errors</span><span class="o">=</span><span class="s1">'ignore'</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-    </details>
 </div>
     
 
@@ -3854,31 +3643,6 @@ Could not get &lt;Worksheet 'Assets v Liabs C' id:164761733&gt; This is probably
 </div>
 </div>
 </div>
-    
-    
-<div class="cell border-box-sizing code_cell rendered">
-<details class="description">
-      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
-        <p></p>
-<div class="input">
-
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse-hide</span>
-
-<span class="n">balance</span> <span class="o">=</span> <span class="n">booking_df_list</span><span class="p">[</span><span class="mi">5</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
-<span class="n">balance_g_table</span> <span class="o">=</span> <span class="n">balance</span>
-<span class="n">cleaned</span> <span class="o">=</span> <span class="n">balance_g_table</span><span class="p">[</span><span class="n">balance_g_table</span><span class="o">.</span><span class="n">columns</span><span class="p">][:</span><span class="mi">10</span><span class="p">]</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-    </details>
-</div>
-    
-
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
@@ -3899,7 +3663,6 @@ Could not get &lt;Worksheet 'Assets v Liabs C' id:164761733&gt; This is probably
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse-hide</span>
-
 <span class="n">cleaned</span>
 </pre></div>
 
@@ -4046,7 +3809,6 @@ Could not get &lt;Worksheet 'Assets v Liabs C' id:164761733&gt; This is probably
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse-hide</span>
 
-
 <span class="c1">#Take natural logs</span>
 <span class="n">df</span><span class="p">[</span><span class="s1">'log Value'</span><span class="p">]</span> <span class="o">=</span>  <span class="n">np</span><span class="o">.</span><span class="n">around</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">'Value'</span><span class="p">]),</span> <span class="mi">4</span><span class="p">)</span>
 <span class="c1"># df['log Value'] =  np.around(np.log(df['log']), 4)</span>
@@ -4114,6 +3876,77 @@ Could not get &lt;Worksheet 'Assets v Liabs C' id:164761733&gt; This is probably
 </div>
 </div>
 </div>
+    
+    
+<div class="cell border-box-sizing code_cell rendered">
+<details class="description">
+      <summary class="btn btn-sm" data-open="Hide Code" data-close="Show Code"></summary>
+        <p></p>
+<div class="input">
+
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#collapse-hide</span>
+
+
+<span class="c1">#Take natural logs</span>
+<span class="n">df</span><span class="p">[</span><span class="s1">'log'</span><span class="p">]</span> <span class="o">=</span>  <span class="n">np</span><span class="o">.</span><span class="n">around</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s1">'Value'</span><span class="p">]),</span> <span class="mi">4</span><span class="p">)</span>
+<span class="c1"># df['log Value'] =  np.around(np.log(df['log']), 4)</span>
+<span class="c1"># select a point for which to provide details-on-demand</span>
+<span class="n">label</span> <span class="o">=</span> <span class="n">alt</span><span class="o">.</span><span class="n">selection_multi</span><span class="p">(</span><span class="n">fields</span><span class="o">=</span><span class="p">[</span><span class="s1">'Metric'</span><span class="p">],</span> <span class="n">bind</span><span class="o">=</span><span class="s1">'legend'</span><span class="p">,</span> 
+     <span class="n">on</span><span class="o">=</span><span class="s1">'mouseover'</span><span class="p">,</span>  <span class="c1"># select on mouseover events</span>
+     <span class="n">nearest</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>    <span class="c1"># select data point nearest the cursor</span>
+     <span class="n">empty</span><span class="o">=</span><span class="s1">'none'</span>     <span class="c1"># empty selection includes no data points</span>
+ <span class="p">)</span>
+<span class="c1"># define our base line chart of stock prices</span>
+<span class="n">base</span> <span class="o">=</span> <span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">()</span><span class="o">.</span><span class="n">mark_line</span><span class="p">()</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
+    
+    <span class="n">alt</span><span class="o">.</span><span class="n">X</span><span class="p">(</span><span class="s1">'Year:T'</span><span class="p">),</span>
+    <span class="n">alt</span><span class="o">.</span><span class="n">Y</span><span class="p">(</span><span class="s1">'log Value:Q'</span><span class="p">),</span>
+    <span class="n">color</span> <span class="o">=</span> <span class="n">alt</span><span class="o">.</span><span class="n">Color</span><span class="p">(</span><span class="s1">'Metric:N'</span><span class="p">,</span> <span class="n">legend</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Legend</span><span class="p">(</span><span class="n">title</span><span class="o">=</span><span class="s2">"Log Growth Rate"</span><span class="p">,</span> <span class="n">labelFontSize</span><span class="o">=</span><span class="mi">15</span><span class="p">,</span> <span class="n">titleFontSize</span><span class="o">=</span><span class="mi">17</span><span class="p">),</span>
+                     <span class="n">scale</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">Scale</span><span class="p">(</span><span class="n">scheme</span><span class="o">=</span><span class="s1">'tableau20'</span><span class="p">))</span>
+                             
+
+    <span class="p">)</span>
+
+<span class="n">alt</span><span class="o">.</span><span class="n">layer</span><span class="p">(</span>
+    <span class="n">base</span><span class="p">,</span> <span class="c1"># base line chart</span>
+    
+    <span class="c1"># add a rule mark to serve as a guide line</span>
+    <span class="n">alt</span><span class="o">.</span><span class="n">Chart</span><span class="p">()</span><span class="o">.</span><span class="n">mark_rule</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s1">'#aaa'</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
+        <span class="n">x</span><span class="o">=</span><span class="s1">'Year:T'</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">transform_filter</span><span class="p">(</span><span class="n">label</span><span class="p">),</span>
+    
+    <span class="c1"># add circle marks for selected time points, hide unselected points</span>
+    <span class="n">base</span><span class="o">.</span><span class="n">mark_circle</span><span class="p">()</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
+        <span class="n">opacity</span><span class="o">=</span><span class="n">alt</span><span class="o">.</span><span class="n">condition</span><span class="p">(</span><span class="n">label</span><span class="p">,</span> <span class="n">alt</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="mi">1</span><span class="p">),</span> <span class="n">alt</span><span class="o">.</span><span class="n">value</span><span class="p">(</span><span class="mi">0</span><span class="p">))</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">add_selection</span><span class="p">(</span><span class="n">label</span><span class="p">),</span>
+
+    <span class="c1"># add white stroked text to provide a legible background for labels</span>
+    <span class="n">base</span><span class="o">.</span><span class="n">mark_text</span><span class="p">(</span><span class="n">align</span><span class="o">=</span><span class="s1">'left'</span><span class="p">,</span> <span class="n">dx</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">dy</span><span class="o">=-</span><span class="mi">5</span><span class="p">,</span> <span class="n">stroke</span><span class="o">=</span><span class="s1">'white'</span><span class="p">,</span> <span class="n">strokeWidth</span><span class="o">=</span><span class="mi">2</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
+        <span class="n">text</span><span class="o">=</span><span class="s1">'log Value:Q'</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">transform_filter</span><span class="p">(</span><span class="n">label</span><span class="p">),</span>
+
+    <span class="c1"># add text labels for stock prices</span>
+    <span class="n">base</span><span class="o">.</span><span class="n">mark_text</span><span class="p">(</span><span class="n">align</span><span class="o">=</span><span class="s1">'left'</span><span class="p">,</span> <span class="n">dx</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">dy</span><span class="o">=-</span><span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">encode</span><span class="p">(</span>
+        <span class="n">text</span><span class="o">=</span><span class="s1">'log Value:Q'</span>
+    <span class="p">)</span><span class="o">.</span><span class="n">transform_filter</span><span class="p">(</span><span class="n">label</span><span class="p">),</span>
+    
+    <span class="n">data</span><span class="o">=</span><span class="n">df</span>
+<span class="p">)</span><span class="o">.</span><span class="n">properties</span><span class="p">(</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">700</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mi">400</span>
+<span class="p">)</span>
+</pre></div>
+
+    </div>
+</div>
+</div>
+
+    </details>
+</div>
+    
+
     
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -6225,49 +6058,51 @@ Could not get &lt;Worksheet 'Chart2' id:1880232164&gt; This is probably a graph
 <div class="cell border-box-sizing text_cell rendered">
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h2 id="Reccomendation:">
-<a class="anchor" href="#Reccomendation:" aria-hidden="true"><span class="octicon octicon-link"></span></a>Reccomendation:<a class="anchor-link" href="#Reccomendation:"> </a>
+<h2 id="Recommendation:">
+<a class="anchor" href="#Recommendation:" aria-hidden="true"><span class="octicon octicon-link"></span></a>Recommendation:<a class="anchor-link" href="#Recommendation:"> </a>
 </h2>
-<p><em>We recommend a <strong>BUY</strong> on BKNG. We expect volatility to continue over the course of the next two weeks, therefore, we would like to use a tailored entry to capitalize on these movements. We propose placing a limit order for 3 shares of BKNG at 1000 dollars per share. We would like to place a stop BUY at 1400 dollars per share. This means we would not buy BKNG unless it hit 1000 or 1400 dollars per share.</em></p>
+<p><em>We recommend a <strong>BUY</strong> on BKNG. We expect volatility to continue over the next two weeks; therefore, we would like to use a tailored entry to capitalize on these movements. We propose placing a limit order for three shares of BKNG at 1000 dollars per share. We want to place a stop BUY at 1400 dollars per share. For those who dont know what that means: we would not buy BKNG unless it hit 1000 or 1400 dollars per share.</em></p>
 <h2 id="Thesis">
 <a class="anchor" href="#Thesis" aria-hidden="true"><span class="octicon octicon-link"></span></a>Thesis<a class="anchor-link" href="#Thesis"> </a>
 </h2>
-<p>Bookings is a quality company trading almost 50% off of 52-Week Highs. We believe that BKNG wins coming out of this recession, and currently attractive at these prices on a relative and DCF valuation basis. We think that BKNG's period of rapid revenue growth approaches an end, however, after a large decline in revenues this year, we anticipate BKNG converging back to a steady 2% revenue growth rate over 10 years.</p>
+<p>Bookings Holdings is a quality company trading almost 50% off of 52-Week Highs. We believe that BKNG wins coming out of this recession and currently attractive at these prices on a relative and DCF valuation basis. We think that BKNG's period of rapid revenue growth approaches an end, however, after a massive decline in revenues this year, we anticipate BKNG converging back to a steady 2% revenue growth rate over ten years.</p>
 <ul>
 <li>
-<p><strong>Why Now:</strong> The Coronavirus impacted and continues to impact the economy at an unprecedented level. Unlike the Great Depression, the Great Recession and other recessions, the Coronavirus upheaval has brought the global economy to a full halt. Economic indicators over the next few weeks will likely be some of the worst readings in the history on record. But under the presumption that the crises will eventually end, either by means of a vaccine or herd immunity, we decided to explore the wreckage that is the travel industry in search of pockets of value and mispriced names. Staying away from airlines, we turned to travel intermediaries and hospitality stocks and settled on a peer sample of companies who leverage technology.</p>
+<p><strong>Why Now:</strong> The Coronavirus impacted and continues to impact the economy at an unprecedented level. Unlike the Great Depression, the Great Recession and other recessions, the Coronavirus upheaval has brought the global economy to a full halt. Economic indicators over the next few weeks will likely be some of the worst readings in the history of US economic account records. But under the presumption that the crises will eventually end, either through a vaccine or herd immunity, we decided to explore the wreckage that is the travel industry in search of pockets of value and mispriced names. Staying away from airlines, we turned to travel intermediaries and hospitality stocks and settled on a peer sample of companies who leverage technology.</p>
 </li>
 <li>
-<p><strong>Why Bookings:</strong> Bookings would compliment our portfolio as a multibillion dollar, global, US based technology company with many subsidiaries, including Booking.com, Priceline.com, Agoda.com, Kayak.com, Cheapflights, Rentalcars.com, Momondo, and OpenTable. They have a reputation of market dominance in hotel bookings. Additionally, Bookings aggressively expanded their operations using their fluency in information technology and hospitality to include restaurant reservations systems internationally. Bookings earnings have steadily increased in the past, and have room to continue as they expand.</p>
+<p><strong>Why Bookings:</strong> Bookings would complement our portfolio as a multibillion-dollar, global, US-based technology company with many subsidiaries, including Booking.com, Priceline.com, Agoda.com, Kayak.com, Cheapflights, Rentalcars.com, Momondo, and OpenTable. They have a reputation for market dominance in hotel bookings. Additionally, Bookings aggressively expanded their operations using their fluency in information technology and hospitality to include restaurant reservations systems internationally. Bookings earnings have steadily increased in the past, and have room to continue as they expand.</p>
 </li>
 <li>
-<p><strong>Why Bookings now:</strong>  Models, incorporating worst case scenarios for economic slowdowns, predict not only Bookings’ survival as a company due to high margins, but also future growth. The consistent revenue they bring in as a vigorous company sustains the company through black swan events like the Coronavirus while maintaining positive outlooks for the future. As an online intermediary for travelers, hotels and restaurants, Bookings’s exposure is lower than other hospitality industries that had sold off recently, such as airlines, cruise lines, amusement parks, hotels, and food servicers. They have fewer employees and have the technological flexibility to afford periods of stagnation in development. BKNG is trading at historically cheap prices compared to fundamental value, and presents a significant opportunity to add a travel industry behemoth to our portfolio, and take advantage of the extreme pessimism and volatility equity markets are currently experiencing.</p>
+<p><strong>Why Bookings now:</strong>  Models, incorporating worst-case scenarios for economic slowdowns, predict not only Bookings' survival as a company due to high margins, but also future growth. The consistent revenue they bring in as a dynamic company sustains the company through black swan events like the Coronavirus while maintaining positive outlooks for the future. As an online intermediary for travelers, hotels, and restaurants, Bookings's exposure is lower than other hospitality industries that had sold off recently, such as airlines, cruise lines, amusement parks, hotels, and food services. They have fewer employees and have the technological flexibility to afford periods of stagnation in development. BKNG is trading at historically low prices compared to fundamental value and presents a significant opportunity to add a travel industry behemoth to our portfolio and take advantage of the extreme pessimism, and volatility equity markets are currently experiencing.</p>
 </li>
 </ul>
 <h2 id="Brief-Industry-Overview">
 <a class="anchor" href="#Brief-Industry-Overview" aria-hidden="true"><span class="octicon octicon-link"></span></a>Brief Industry Overview<a class="anchor-link" href="#Brief-Industry-Overview"> </a>
 </h2>
-<p>Traveling requires planning trips and not too long ago consumers relied on travel agencies to serve that function. Technology changed the ease in which consumers can travel and plan their travels. With the rise of the internet and social media, consumers can access information, decide where they want to go and compare prices themselves. They also have more modes of transportation via ride sharing apps, greater volume and scope of airline flights in general improvements in global infrastructure. This increases demand for more travel, tourism and hospitality and, circularly, the industry’s newfound reliance on information technology. Every aspect of the everyday has been imbued with travel technology, and Bookings provides much of this information in one place, on any of their given websites. Travel technology demand by consumers and businesses rises along with new applications for travel technology. This demand is mainly satisfied by Bookings, the largest travel technology company in the world.</p>
+<p>Traveling requires planning trips; not too long ago, consumers relied on travel agencies to serve that function. Technology made that obsolete by allowing consumers to plan their travels. With the rise of the internet and social media, consumers can access information, decide where they want to go and compare prices themselves. They also have more modes of transportation via ride-sharing apps, higher volume, and scope of airline flights in general improvements in global infrastructure.</p>
+<p>These technological advancements create more efficient markets for travelers and do most of the heavy lifting when it comes to contract matching and sales. It is no wonder that Tourism, hospitality, and circularly, industries have newfound reliance on information technology.</p>
+<p>Bookings provide much of this information in one place, on any of their given websites. Travel technology demand by consumers and businesses rises along with new applications for travel technology. This demand is mainly satisfied with Bookings, the largest travel technology company in the world.</p>
 <h2 id="Brief-Peer-Overview">
 <a class="anchor" href="#Brief-Peer-Overview" aria-hidden="true"><span class="octicon octicon-link"></span></a>Brief Peer Overview<a class="anchor-link" href="#Brief-Peer-Overview"> </a>
 </h2>
-<p>Bookings’ competitors include Expedia, Trip.com, and TripAdvisor. Expedia with a market cap of 8.8B includes CarRentals.com, Expedia.com, Hotels.com, Orbitz and Travelocity. Trip.com with a cap of 13.8B includes Airfarewatchdog, Bookingbuddy.com, Holidaylettings.co.uk, and Jetsetter.com. TripAdvisor, with a market cap of 2.4B receives a significant portion of their revenue from Bookings and Expedia. For comparison, Bookings has a market cap of $51.5B. Bookings outperforms its competitors in almost all performance markers.</p>
+<p>Bookings' competitors include Expedia, Trip.com, and TripAdvisor. Expedia with a market cap of 8.8B includes CarRentals.com, Expedia.com, Hotels.com, Orbitz and Travelocity. Trip.com with a cap of 13.8B includes Airfarewatchdog, Bookingbuddy.com, Holidaylettings.co.uk, and Jetsetter.com. TripAdvisor, with a market cap of 2.4B receives a significant portion of their revenue from Bookings and Expedia. For comparison, Bookings has a market cap of $51.5B. Bookings outperforms its competitors in almost all performance markers.</p>
 <h2 id="Business-Description">
 <a class="anchor" href="#Business-Description" aria-hidden="true"><span class="octicon octicon-link"></span></a>Business Description<a class="anchor-link" href="#Business-Description"> </a>
 </h2>
-<p>Booking Holdings Inc. provides online travel and related services in Europe, North America, South America, the Asia-Pacific region, the Middle East, and Africa. The company operates Booking.com, which connects travelers with a selection of places to stay, including apartments, vacation homes, family-run B&amp;Bs, 5-star luxury resorts, tree houses, and igloos; and KAYAK that searches other sites to show travelers the information they need to find the right flights, hotels, rental cars, and vacation packages. It also operates Priceline, an online travel deal service, which provides travelers to save on hotel rooms, airline tickets, rental cars, vacation packages, and cruises; Agoda, which provides online accommodation reservation services. In addition, the company operates Rentalcars.com that offers online rental car reservation services; and OpenTable, an online provider of restaurant reservation and information services to consumers and restaurant reservation management, as well as customer acquisition services to restaurants. Further, it offers travel insurance products. The company was formerly known as The Priceline Group Inc. and changed its name to Booking Holdings Inc. in February 2018. Booking Holdings Inc. was founded in 1997 and is headquartered in Norwalk, Connecticut.(Source : Finviz)</p>
+<p>Booking Holdings Inc. provides online travel and related services in Europe, North America, South America, the Asia-Pacific region, the Middle East, and Africa. The company operates Booking.com, which connects travelers with a selection of places to stay, including apartments, vacation homes, family-run B&amp;Bs, 5-star luxury resorts, tree houses, and igloos; and KAYAK that searches other sites to show travelers the information they need to find the right flights, hotels, rental cars, and vacation packages. It also operates Priceline, an online travel deal service, which provides travelers to save on hotel rooms, airline tickets, rental cars, vacation packages, and cruises; Agoda, which provides online accommodation reservation services. In addition, the company operates Rentalcars.com that offers online rental car reservation services; and OpenTable, an online provider of restaurant reservation and information services to consumers and restaurant reservation management, as well as customer acquisition services to restaurants. Further, it offers travel insurance products. The company was formerly known as The Priceline Group Inc. and changed its name to Booking Holdings Inc. in February 2018. Booking Holdings Inc. was founded in 1997 and is headquartered in Norwalk, Connecticut. (Source: Finviz)</p>
 <h3 id="Revenue-Drivers">
 <a class="anchor" href="#Revenue-Drivers" aria-hidden="true"><span class="octicon octicon-link"></span></a>Revenue Drivers<a class="anchor-link" href="#Revenue-Drivers"> </a>
 </h3>
-<p>Agency, mechant and advertising operations drive Bookings’ revenue. Their main source of revenue comes from acting as an online travel agency booking hotels, car rentals and restaurant reservations with commissions. Their second source derives from their role as a merchant, selling reservations at hotels, car rentals and restaurant reservations. Bookings also receives revenue from traditional advertising on it’s websites.</p>
+<p>Agency, merchant and advertising operations drive Bookings' revenue. Their main source of revenue comes from acting as an online travel agency booking hotels, car rentals and restaurant reservations with commissions. Their second source derives from their role as a merchant, selling reservations at hotels, car rentals and restaurant reservations. Bookings also receives revenue from traditional advertising on it's websites.</p>
 <h2 id="Sustainability-and-Governance">
 <a class="anchor" href="#Sustainability-and-Governance" aria-hidden="true"><span class="octicon octicon-link"></span></a>Sustainability and Governance<a class="anchor-link" href="#Sustainability-and-Governance"> </a>
 </h2>
-<p>Yahoo ESG rating is 19/100, quantified using data of 120 environmental, social and governance indicators including: carbon emissions, climate change effect, pollution, waste disposal, renewable energy, resource depletion, supply chain, political contributions, discrimination, diversity, community relations, human rights, cumulative voting, executive compensation, shareholders’ rights, takeover defense, staggered boards, and independent directors. ESG rating will penalize companies for “missing data.” A low score signals less risk in governance and social environmental impact. The anti-competitive nature of Bookings signals its success as a capitalist company as much as their disrespect for fair play in markets.Business informs Bookings political opinions, evidenced by their support for illegal Israeli occupation of Palestine.</p>
+<p>Yahoo ESG rating is 19/100, quantified using data of 120 environmental, social and governance indicators including: carbon emissions, climate change effect, pollution, waste disposal, renewable energy, resource depletion, supply chain, political contributions, discrimination, diversity, community relations, human rights, cumulative voting, executive compensation, shareholders' rights, takeover defense, staggered boards, and independent directors. ESG rating will penalize companies for "missing data." A low score signals less risk in governance and social-environmental impact. The anti-competitive nature of Bookings indicates its success as a capitalist company as much as their disrespect for fair play in markets. Business informs Bookings political opinions, evidenced by their support for the illegal Israeli occupation of Palestine.</p>
 <h2 id="Risks">
 <a class="anchor" href="#Risks" aria-hidden="true"><span class="octicon octicon-link"></span></a>Risks<a class="anchor-link" href="#Risks"> </a>
 </h2>
-<p>The nice thing about this idea is the company is experiencing a worst case scenario. Economic activity will grind to a halt, and revenues will be impacted. We expect our revenues to decline modestly, and the DCF models account for this in the 60% decline in topline built into the first year.  One risk might be that recent events might change consumer behavior in the travel sector, and revenue streams might be dampened for the foreseeable future. Additionally, more than half of revenues are reservations and travel insurance, we could be too conservative, and large amounts of travel insurance claims might drain cash flows in ways our models do not anticipate.</p>
+<p>The beautiful thing about this idea is the company is experiencing a worst-case scenario. Economic activity will grind to a halt, and revenues will be impacted. We expect BKNG's revenues to decline modestly, and the DCF models account for this in the 60% decline in topline built into the first year.  One risk might be that recent events might change consumer behavior in the travel sector, and revenue streams might be dampened for the foreseeable future. Additionally, more than half of revenues are reservations and travel insurance--massive amounts of travel insurance claims might drain cash flows in ways our models do not anticipate.</p>
 
 </div>
 </div>
