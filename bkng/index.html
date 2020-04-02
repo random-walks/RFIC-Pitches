@@ -95,7 +95,7 @@ window.onload = wrap_img;
        • <span class="read-time" title="Estimated read time">
     
     
-      37 min read
+      36 min read
     
 </span></p>
 
@@ -3379,7 +3379,6 @@ Could not get &lt;Worksheet 'Assets v Liabs C' id:164761733&gt; This is probably
 <span class="n">cost</span> <span class="o">=</span> <span class="n">booking_df_list</span><span class="p">[</span><span class="mi">4</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
 <span class="n">income_g_table</span> <span class="o">=</span> <span class="n">cost</span>
 <span class="n">cleaned</span> <span class="o">=</span> <span class="n">income_g_table</span><span class="p">[</span><span class="n">income_g_table</span><span class="o">.</span><span class="n">columns</span><span class="p">][</span><span class="mi">11</span><span class="p">:</span><span class="mi">21</span><span class="p">]</span>
-<span class="n">cleaned</span><span class="o">.</span><span class="n">columns</span>
 </pre></div>
 
     </div>
@@ -3878,22 +3877,6 @@ Could not get &lt;Worksheet 'Assets v Liabs C' id:164761733&gt; This is probably
 </div>
 
     </details>
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>Index(['Year', 'Cash and Equivalents', 'Total Liabilities', 'Total Assets', 'Liabilities/Assets', 'Cash and Equivalents Growth', 'AVG Cash and Equivalents Growth', 'Total Liabilities Growth', 'AVG Total Liabilities Growth', 'Total Assets Growth', 'AVG Total Assets Growth', 'Liabilities/Assets Growth', 'AVG Liabilities/Assets Growth'], dtype='object')</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
 </div>
     
 
@@ -4052,15 +4035,6 @@ Could not get &lt;Worksheet 'Assets v Liabs C' id:164761733&gt; This is probably
 </div>
     
 
-<div class="cell border-box-sizing text_cell rendered">
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="Balance-Sheet-Historical-Growth-in-Growth-Rates">
-<a class="anchor" href="#Balance-Sheet-Historical-Growth-in-Growth-Rates" aria-hidden="true"><span class="octicon octicon-link"></span></a>Balance Sheet Historical Growth in Growth Rates<a class="anchor-link" href="#Balance-Sheet-Historical-Growth-in-Growth-Rates"> </a>
-</h3>
-</div>
-</div>
-</div>
     
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -4129,70 +4103,18 @@ Could not get &lt;Worksheet 'Assets v Liabs C' id:164761733&gt; This is probably
 </div>
 
     </details>
-<div class="output_wrapper">
-<div class="output">
-
-<div class="output_area">
-
-
-<div class="output_html rendered_html output_subarea output_execute_result">
-
-<div id="altair-viz-4f945f95ed244446b78b11f7a254ecb4"></div>
-<script type="text/javascript">
-  (function(spec, embedOpt){
-    const outputDiv = document.getElementById("altair-viz-4f945f95ed244446b78b11f7a254ecb4");
-    const paths = {
-      "vega": "https://cdn.jsdelivr.net/npm//vega@5?noext",
-      "vega-lib": "https://cdn.jsdelivr.net/npm//vega-lib?noext",
-      "vega-lite": "https://cdn.jsdelivr.net/npm//vega-lite@4.0.2?noext",
-      "vega-embed": "https://cdn.jsdelivr.net/npm//vega-embed@6?noext",
-    };
-
-    function loadScript(lib) {
-      return new Promise(function(resolve, reject) {
-        var s = document.createElement('script');
-        s.src = paths[lib];
-        s.async = true;
-        s.onload = () => resolve(paths[lib]);
-        s.onerror = () => reject(`Error loading script: ${paths[lib]}`);
-        document.getElementsByTagName("head")[0].appendChild(s);
-      });
-    }
-
-    function showError(err) {
-      outputDiv.innerHTML = `<div class="error" style="color:red;">${err}</div>`;
-      throw err;
-    }
-
-    function displayChart(vegaEmbed) {
-      vegaEmbed(outputDiv, spec, embedOpt)
-        .catch(err => showError(`Javascript Error: ${err.message}<br>This usually means there's a typo in your chart specification. See the javascript console for the full traceback.`));
-    }
-
-    if(typeof define === "function" && define.amd) {
-      requirejs.config({paths});
-      require(["vega-embed"], displayChart, err => showError(`Error loading script: ${err.message}`));
-    } else if (typeof vegaEmbed === "function") {
-      displayChart(vegaEmbed);
-    } else {
-      loadScript("vega")
-        .then(() => loadScript("vega-lite"))
-        .then(() => loadScript("vega-embed"))
-        .catch(showError)
-        .then(() => displayChart(vegaEmbed));
-    }
-  })({"config": {"view": {"continuousWidth": 400, "continuousHeight": 300}}, "layer": [{"mark": "line", "encoding": {"color": {"type": "nominal", "field": "Metric", "legend": {"labelFontSize": 15, "title": "Growth Rate", "titleFontSize": 17}, "scale": {"scheme": "tableau20"}}, "x": {"type": "temporal", "field": "Year"}, "y": {"type": "quantitative", "field": "log Value"}}}, {"mark": {"type": "rule", "color": "#aaa"}, "encoding": {"x": {"type": "temporal", "field": "Year"}}, "transform": [{"filter": {"selection": "selector015"}}]}, {"mark": "circle", "encoding": {"color": {"type": "nominal", "field": "Metric", "legend": {"labelFontSize": 15, "title": "Growth Rate", "titleFontSize": 17}, "scale": {"scheme": "tableau20"}}, "opacity": {"condition": {"value": 1, "selection": "selector015"}, "value": 0}, "x": {"type": "temporal", "field": "Year"}, "y": {"type": "quantitative", "field": "log Value"}}, "selection": {"selector015": {"type": "multi", "fields": ["Metric"], "bind": "legend", "on": "mouseover", "nearest": true, "empty": "none"}}}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5, "stroke": "white", "strokeWidth": 2}, "encoding": {"color": {"type": "nominal", "field": "Metric", "legend": {"labelFontSize": 15, "title": "Growth Rate", "titleFontSize": 17}, "scale": {"scheme": "tableau20"}}, "text": {"type": "quantitative", "field": "log Value"}, "x": {"type": "temporal", "field": "Year"}, "y": {"type": "quantitative", "field": "log Value"}}, "transform": [{"filter": {"selection": "selector015"}}]}, {"mark": {"type": "text", "align": "left", "dx": 5, "dy": -5}, "encoding": {"color": {"type": "nominal", "field": "Metric", "legend": {"labelFontSize": 15, "title": "Growth Rate", "titleFontSize": 17}, "scale": {"scheme": "tableau20"}}, "text": {"type": "quantitative", "field": "log Value"}, "x": {"type": "temporal", "field": "Year"}, "y": {"type": "quantitative", "field": "log Value"}}, "transform": [{"filter": {"selection": "selector015"}}]}], "data": {"name": "data-0c45a85e20cc0a2f406d126a17e70a7d"}, "height": 400, "width": 700, "$schema": "https://vega.github.io/schema/vega-lite/v4.0.2.json", "datasets": {"data-0c45a85e20cc0a2f406d126a17e70a7d": [{"Year": "12/1/2019", "Metric": "Cash and Equivalents", "Value": 6.312, "log Value": 1.8425}, {"Year": "12/1/2019", "Metric": "Total Liabilities", "Value": 15.47, "log Value": 2.7389}, {"Year": "12/1/2019", "Metric": "Total Assets", "Value": 21.4, "log Value": 3.0634}, {"Year": "12/1/2019", "Metric": "Liabilities/Assets", "Value": 0.7228971963, "log Value": -0.3245}, {"Year": "12/1/2018", "Metric": "Cash and Equivalents", "Value": 2.624, "log Value": 0.9647}, {"Year": "12/1/2018", "Metric": "Total Liabilities", "Value": 13.9, "log Value": 2.6319}, {"Year": "12/1/2018", "Metric": "Total Assets", "Value": 22.69, "log Value": 3.1219}, {"Year": "12/1/2018", "Metric": "Liabilities/Assets", "Value": 0.6126046717, "log Value": -0.49}, {"Year": "12/1/2017", "Metric": "Cash and Equivalents", "Value": 2.542, "log Value": 0.933}, {"Year": "12/1/2017", "Metric": "Total Liabilities", "Value": 14.19, "log Value": 2.6525}, {"Year": "12/1/2017", "Metric": "Total Assets", "Value": 25.45, "log Value": 3.2367}, {"Year": "12/1/2017", "Metric": "Liabilities/Assets", "Value": 0.5575638507, "log Value": -0.5842}, {"Year": "12/1/2016", "Metric": "Cash and Equivalents", "Value": 2.081, "log Value": 0.7328}, {"Year": "12/1/2016", "Metric": "Total Liabilities", "Value": 10.02, "log Value": 2.3046}, {"Year": "12/1/2016", "Metric": "Total Assets", "Value": 19.84, "log Value": 2.9877}, {"Year": "12/1/2016", "Metric": "Liabilities/Assets", "Value": 0.5050403226, "log Value": -0.6831}, {"Year": "12/1/2015", "Metric": "Cash and Equivalents", "Value": 1.477, "log Value": 0.39}, {"Year": "12/1/2015", "Metric": "Total Liabilities", "Value": 8.625, "log Value": 2.1547}, {"Year": "12/1/2015", "Metric": "Total Assets", "Value": 17.42, "log Value": 2.8576}, {"Year": "12/1/2015", "Metric": "Liabilities/Assets", "Value": 0.4951205511, "log Value": -0.703}, {"Year": "12/1/2014", "Metric": "Cash and Equivalents", "Value": 3.149, "log Value": 1.1471}, {"Year": "12/1/2014", "Metric": "Total Liabilities", "Value": 6.204, "log Value": 1.8252}, {"Year": "12/1/2014", "Metric": "Total Assets", "Value": 14.77, "log Value": 2.6926}, {"Year": "12/1/2014", "Metric": "Liabilities/Assets", "Value": 0.4200406229, "log Value": -0.8674}, {"Year": "12/1/2013", "Metric": "Cash and Equivalents", "Value": 1.29, "log Value": 0.2546}, {"Year": "12/1/2013", "Metric": "Total Liabilities", "Value": 3.535, "log Value": 1.2627}, {"Year": "12/1/2013", "Metric": "Total Assets", "Value": 10.44, "log Value": 2.3456}, {"Year": "12/1/2013", "Metric": "Liabilities/Assets", "Value": 0.3386015326, "log Value": -1.0829}, {"Year": "12/1/2012", "Metric": "Cash and Equivalents", "Value": 1.536, "log Value": 0.4292}, {"Year": "12/1/2012", "Metric": "Total Liabilities", "Value": 2.673, "log Value": 0.9832}, {"Year": "12/1/2012", "Metric": "Total Assets", "Value": 6.57, "log Value": 1.8825}, {"Year": "12/1/2012", "Metric": "Liabilities/Assets", "Value": 0.4068493151, "log Value": -0.8993}, {"Year": "12/1/2011", "Metric": "Cash and Equivalents", "Value": 0.63284, "log Value": -0.4575}, {"Year": "12/1/2011", "Metric": "Total Liabilities", "Value": 1.396, "log Value": 0.3336}, {"Year": "12/1/2011", "Metric": "Total Assets", "Value": 3.971, "log Value": 1.379}, {"Year": "12/1/2011", "Metric": "Liabilities/Assets", "Value": 0.3515487283, "log Value": -1.0454}, {"Year": "12/1/2010", "Metric": "Cash and Equivalents", "Value": 0.35897, "log Value": -1.0245}, {"Year": "12/1/2010", "Metric": "Total Liabilities", "Value": 1.047, "log Value": 0.0459}, {"Year": "12/1/2010", "Metric": "Total Assets", "Value": 2.906, "log Value": 1.0668}, {"Year": "12/1/2010", "Metric": "Liabilities/Assets", "Value": 0.3602890571, "log Value": -1.0208}]}}, {"mode": "vega-lite"});
-</script>
-</div>
-
-</div>
-
-</div>
-</div>
-
 </div>
     
 
+<div class="cell border-box-sizing text_cell rendered">
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="Balance-Sheet-Historical-Growth-in-Growth-Rates">
+<a class="anchor" href="#Balance-Sheet-Historical-Growth-in-Growth-Rates" aria-hidden="true"><span class="octicon octicon-link"></span></a>Balance Sheet Historical Growth in Growth Rates<a class="anchor-link" href="#Balance-Sheet-Historical-Growth-in-Growth-Rates"> </a>
+</h3>
+</div>
+</div>
+</div>
     
     
 <div class="cell border-box-sizing code_cell rendered">
@@ -6311,7 +6233,7 @@ Could not get &lt;Worksheet 'Chart2' id:1880232164&gt; This is probably a graph
 <h2 id="Thesis">
 <a class="anchor" href="#Thesis" aria-hidden="true"><span class="octicon octicon-link"></span></a>Thesis<a class="anchor-link" href="#Thesis"> </a>
 </h2>
-<p>Bookings is a quality company trading almost 50% off of 52-Week Highs. We believe that BKNG will be a winner coming out of this recession, and is currently attractive at these prices on a relative and DCF valuation basis. We think that BKNG's period of rapid revenue growth is coming to an end, however, after a large decline in revenues this year, we anticipate BKNG converging back to a steady 2% revenue growth rate over 10 years.</p>
+<p>Bookings is a quality company trading almost 50% off of 52-Week Highs. We believe that BKNG wins coming out of this recession, and currently attractive at these prices on a relative and DCF valuation basis. We think that BKNG's period of rapid revenue growth approaches an end, however, after a large decline in revenues this year, we anticipate BKNG converging back to a steady 2% revenue growth rate over 10 years.</p>
 <ul>
 <li>
 <p><strong>Why Now:</strong> The Coronavirus impacted and continues to impact the economy at an unprecedented level. Unlike the Great Depression, the Great Recession and other recessions, the Coronavirus upheaval has brought the global economy to a full halt. Economic indicators over the next few weeks will likely be some of the worst readings in the history on record. But under the presumption that the crises will eventually end, either by means of a vaccine or herd immunity, we decided to explore the wreckage that is the travel industry in search of pockets of value and mispriced names. Staying away from airlines, we turned to travel intermediaries and hospitality stocks and settled on a peer sample of companies who leverage technology.</p>
@@ -6320,7 +6242,8 @@ Could not get &lt;Worksheet 'Chart2' id:1880232164&gt; This is probably a graph
 <p><strong>Why Bookings:</strong> Bookings would compliment our portfolio as a multibillion dollar, global, US based technology company with many subsidiaries, including Booking.com, Priceline.com, Agoda.com, Kayak.com, Cheapflights, Rentalcars.com, Momondo, and OpenTable. They have a reputation of market dominance in hotel bookings. Additionally, Bookings aggressively expanded their operations using their fluency in information technology and hospitality to include restaurant reservations systems internationally. Bookings earnings have steadily increased in the past, and have room to continue as they expand.</p>
 </li>
 <li>
-<strong>Why Bookings now:</strong>  Models, incorporating worst case scenarios for economic slowdowns, predict not only Bookings’ survival as a company due to high margins, but also future growth. The consistent revenue they bring in as a vigorous company sustains the company through black swan events like the Coronavirus while maintaining positive outlooks for the future. As an online intermediary for travelers, hotels and restaurants, Bookings’s exposure is lower than other hospitality industries that had sold off recently, such as airlines, cruise lines, amusement parks, hotels, and food servicers. They have fewer employees and have the technological flexibility to afford periods of stagnation in development. BKNG is trading at historically cheap prices compared to fundamental value, and presents a significant opportunity to add a travel industry behemoth to our portfolio, and take advantage of the extreme pessimism and volatility equity markets are currently experiencing.</li>
+<p><strong>Why Bookings now:</strong>  Models, incorporating worst case scenarios for economic slowdowns, predict not only Bookings’ survival as a company due to high margins, but also future growth. The consistent revenue they bring in as a vigorous company sustains the company through black swan events like the Coronavirus while maintaining positive outlooks for the future. As an online intermediary for travelers, hotels and restaurants, Bookings’s exposure is lower than other hospitality industries that had sold off recently, such as airlines, cruise lines, amusement parks, hotels, and food servicers. They have fewer employees and have the technological flexibility to afford periods of stagnation in development. BKNG is trading at historically cheap prices compared to fundamental value, and presents a significant opportunity to add a travel industry behemoth to our portfolio, and take advantage of the extreme pessimism and volatility equity markets are currently experiencing.</p>
+</li>
 </ul>
 <h2 id="Brief-Industry-Overview">
 <a class="anchor" href="#Brief-Industry-Overview" aria-hidden="true"><span class="octicon octicon-link"></span></a>Brief Industry Overview<a class="anchor-link" href="#Brief-Industry-Overview"> </a>
